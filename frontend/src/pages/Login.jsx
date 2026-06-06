@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
+// ── Styled components preserved exactly from original ─────────────────────────
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -57,27 +59,35 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+// Changed from <a> to a styled span so useHistory can handle navigation
+const Link = styled.span`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
+  color: inherit;
+  &:hover {
+    color: teal;
+  }
 `;
 
 const Error = styled.span`
   color: red;
 `;
+// ─────────────────────────────────────────────────────────────────────────────
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const dispatch   = useDispatch();
+  const history    = useHistory();                          // ← added
   const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
   };
+
   return (
     <Container>
       <Wrapper>
@@ -96,8 +106,14 @@ const Login = () => {
             LOGIN
           </Button>
           {error && <Error>Something went wrong...</Error>}
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+
+          {/* Forgot password — placeholder page not yet built; link hidden */}
+          {/* <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link> */}
+
+          {/* CREATE A NEW ACCOUNT — now navigates to /register */}
+          <Link onClick={() => history.push("/register")}>
+            CREATE A NEW ACCOUNT
+          </Link>
         </Form>
       </Wrapper>
     </Container>

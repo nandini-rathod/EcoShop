@@ -1,22 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "@material-ui/core";
-import { ShoppingCartOutlined, EcoOutlined, SearchOutlined, CloseOutlined } from "@material-ui/icons";
+import {
+  ShoppingCartOutlined,
+  EcoOutlined,
+  SearchOutlined,
+  CloseOutlined,
+  FavoriteBorderOutlined,  // ← wishlist icon (already in @material-ui/icons)
+} from "@material-ui/icons";
 import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
 import logo from "./logo.png";
 
 const Navbar = () => {
-  const quantity      = useSelector((state) => state.cart.quantity);
-  const currentUser   = useSelector((state) => state.user.currentUser);
-  const greenCredits  = useSelector((state) => state.user.currentUser?.greenCredits);
-  const history       = useHistory();
+  const quantity     = useSelector((state) => state.cart.quantity);
+  const currentUser  = useSelector((state) => state.user.currentUser);
+  const greenCredits = useSelector((state) => state.user.currentUser?.greenCredits);
+  // Wishlist count — driven by wishlistRedux (items array length)
+  const wishlistCount = useSelector((state) => state.wishlist.items.length);
+  const history = useHistory();
 
   const [searchOpen, setSearchOpen]   = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef(null);
 
-  // Close search bar when clicking outside
+  // Close search bar when clicking outside — preserved exactly
   useEffect(() => {
     const handler = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -69,7 +77,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* ── Right: Search + Credits + Cart ── */}
+      {/* ── Right: Search + Credits + Dashboard + Wishlist + Cart ── */}
       <div className="search-bar" ref={searchRef}>
         {/* Search */}
         {searchOpen ? (
@@ -112,6 +120,15 @@ const Navbar = () => {
         {currentUser && (
           <Link to="/dashboard" className="nav-dash-link" title="My Eco Dashboard">
             🌍
+          </Link>
+        )}
+
+        {/* ── Wishlist icon — only shown when logged in ── */}
+        {currentUser && (
+          <Link to="/wishlist" title="My Wishlist" style={{ display: "flex", alignItems: "center" }}>
+            <Badge badgeContent={wishlistCount} color="secondary" overlap="rectangular">
+              <FavoriteBorderOutlined style={{ color: "white", fontSize: 28, marginLeft: "6px" }} />
+            </Badge>
           </Link>
         )}
 

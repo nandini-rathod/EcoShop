@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SustainabilityBadges from "../components/SustainabilityBadges";
 import { addProduct } from "../redux/cartRedux";
+// Sync wishlist items into Redux so the Navbar badge stays accurate
+import { fetchWishlistSuccess } from "../redux/wishlistRedux";
 
 const WishlistPage = () => {
   const currentUser = useSelector((s) => s.user.currentUser);
@@ -20,15 +22,22 @@ const WishlistPage = () => {
     setLoading(true);
     publicRequest
       .get(`/users/${currentUser._id}/wishlist`)
-      .then((res) => setWishlist(res.data.wishlist || []))
+      .then((res) => {
+        const items = res.data.wishlist || [];
+        setWishlist(items);
+        // Keep Redux wishlist slice in sync so Navbar badge count is correct
+        dispatch(fetchWishlistSuccess(items));
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [currentUser, history]);
+  }, [currentUser, history, dispatch]);
 
   const handleRemove = async (productId) => {
     try {
       const res = await publicRequest.delete(`/users/${currentUser._id}/wishlist/${productId}`);
-      setWishlist(res.data.wishlist || []);
+      const updated = res.data.wishlist || [];
+      setWishlist(updated);
+      dispatch(fetchWishlistSuccess(updated));
     } catch {}
   };
 
