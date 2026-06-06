@@ -1,7 +1,6 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import { sliderItems } from "../data";
-import { mobile } from "../responsive";
 import "./slider.css"; // Import the CSS file
 
 

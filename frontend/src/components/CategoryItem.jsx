@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./CategoryItem.css"; // Import the CSS file
-import { categories } from "../data"; // Import the categories data
 
 const CategoryItem = ({ item }) => {
   return (
