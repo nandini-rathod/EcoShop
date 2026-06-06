@@ -36,13 +36,12 @@
 
 .category-items-wrapper {
   display: flex;
-  width: calc(100% * ${({ totalPages }) => totalPages});
   transition: transform 0.5s ease;
   align-items: flex-start;
 }
 
 .category-item {
-  flex: 0 0 calc(100% / ${({ itemsPerPage }) => itemsPerPage});
+  flex: 0 0 auto;
   padding: 10px;
   box-sizing: border-box;
 }
