@@ -26,7 +26,7 @@ const Categories = () => {
         <ArrowBackIosOutlined />
       </div>
       <div className="category-slider" ref={containerRef} style={{ transform: `translateX(-${slideIndex * 100}%)` }}>
-        <div className="category-items-wrapper" itemsPerPage={itemsPerPage} totalPages={totalPages}>
+        <div className="category-items-wrapper">
           {categories.map((category) => (
             <div className="category-item" key={category.id}>
               <CategoryItem item={category} />
