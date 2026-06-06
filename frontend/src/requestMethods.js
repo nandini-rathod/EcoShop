@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5001/api/";
+const BASE_URL = "https://ecoshop-xoeh.onrender.com";
 
 // Read token dynamically on each request so it works after login without page reload
 const getToken = () => {
