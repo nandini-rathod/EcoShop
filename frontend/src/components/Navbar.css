@@ -1,0 +1,184 @@
+/* ── Preserved original styles + new additions ─────────────────────────── */
+.navbar-container {
+  height: 60px;
+  background-color: #2d8c5e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.nav-logo-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-text {
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.sub-header-text {
+  color: #e0f7a2;
+  font-size: 10px;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 2;
+  justify-content: center;
+}
+
+.nav-link {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #e0f7a2;
+}
+
+.nav-link-a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+/* ── Search expanded ─────────────────────────────────────────────────── */
+.nav-search-expanded {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+.nav-search-input {
+  width: 180px;
+  background: transparent !important;
+  color: white !important;
+  border: none !important;
+  outline: none !important;
+  font-size: 14px;
+  padding: 6px 8px !important;
+}
+
+.nav-search-input::placeholder {
+  color: rgba(255,255,255,0.65);
+}
+
+.nav-search-btn,
+.nav-search-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.nav-search-btn:hover,
+.nav-search-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.nav-search-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+/* ── Green Credits badge ──────────────────────────────────────────────── */
+.nav-eco-link {
+  text-decoration: none;
+}
+
+.nav-eco-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-eco-badge:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.nav-credits-pill {
+  color: #e0f7a2;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nav-dash-link {
+  font-size: 20px;
+  margin-left: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.nav-dash-link:hover {
+  transform: scale(1.15);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .header-text { font-size: 16px; }
+  .nav-search-input { width: 120px; }
+}
