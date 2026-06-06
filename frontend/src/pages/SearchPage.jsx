@@ -23,7 +23,7 @@ const SearchPage = () => {
     if (!q.trim()) { setProducts([]); setLoading(false); return; }
     setLoading(true);
     axios
-      .get(`http://localhost:5001/api/products/search?q=${encodeURIComponent(q)}`)
+      .get(`https://ecoshop-xoeh.onrender.com/api/products/search?q=${encodeURIComponent(q)}`)
       .then((res) => setProducts(res.data.products || []))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
