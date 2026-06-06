@@ -11,19 +11,22 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat, filters, sort }) => {
-  const [products, setProducts]               = useState([]);
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   // Fetch products — handles both {products:[]} and flat [] response shapes
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const url = cat
-          ? `http://localhost:5001/api/products?category=${cat}`
-          : "http://localhost:5001/api/products";
+        const url =
+          cat && cat !== "all"
+            ? "https://ecoshop-xoeh.onrender.com/api/products?category=" + cat
+            : "https://ecoshop-xoeh.onrender.com/api/products";
         const res = await axios.get(url);
         // Support both response shapes: { products: [] } and []
-        const data = Array.isArray(res.data) ? res.data : (res.data.products || []);
+        const data = Array.isArray(res.data)
+          ? res.data
+          : res.data.products || [];
         setProducts(data);
       } catch (err) {
         console.error("Products fetch error:", err);
@@ -42,8 +45,8 @@ const Products = ({ cat, filters, sort }) => {
           const field = item[key];
           if (Array.isArray(field)) return field.includes(value);
           return field === value;
-        })
-      )
+        }),
+      ),
     );
   }, [products, cat, filters]);
 
@@ -51,18 +54,20 @@ const Products = ({ cat, filters, sort }) => {
   useEffect(() => {
     if (sort === "newest") {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
       );
     } else if (sort === "asc") {
-      setFilteredProducts((prev) => [...prev].sort((a, b) => a.price - b.price));
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.price - b.price),
+      );
     } else if (sort === "desc") {
-      setFilteredProducts((prev) => [...prev].sort((a, b) => b.price - a.price));
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.price - a.price),
+      );
     }
   }, [sort]);
 
-  const displayList = cat
-    ? filteredProducts
-    : products.slice(0, 8);
+  const displayList = cat ? filteredProducts : products.slice(0, 8);
 
   return (
     <Container>
